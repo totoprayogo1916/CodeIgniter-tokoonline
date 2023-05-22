@@ -41,7 +41,8 @@ $routes->group('cart', static function ($routes) {
 });
 
 $routes->group('login', static function ($routes) {
-    $routes->get('/', [Login::class, 'index']);
+    $routes->get('/', [Login::class, 'index'], ['as' => 'login.view']);
+    $routes->post('/', [Login::class, 'auth'], ['as' => 'login.auth']);
 });
 
 /*

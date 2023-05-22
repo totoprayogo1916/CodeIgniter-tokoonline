@@ -1,11 +1,31 @@
 <?php
 
-if (! defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
+namespace App\Models;
 
-class User extends CI_Model
+use CodeIgniter\Model;
+
+class User extends Model
 {
+    protected $DBGroup          = 'default';
+    protected $table            = 'users';
+    protected $primaryKey       = 'id';
+    protected $useAutoIncrement = true;
+    protected $returnType       = 'object';
+    protected $useSoftDeletes   = false;
+    protected $protectFields    = true;
+    protected $allowedFields    = [
+        'username',
+        'password',
+        'group',
+    ];
+
+    // Dates
+    protected $useTimestamps = false;
+    protected $dateFormat    = 'datetime';
+    protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
+    protected $deletedField  = 'deleted_at';
+
     public function check_credential()
     {
         $username = set_value('username');
@@ -21,6 +41,5 @@ class User extends CI_Model
         }
 
         return [];
-
     }
 }

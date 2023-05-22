@@ -35,7 +35,7 @@ $cart = new Cart();
                     </li>
                     <li><?php echo anchor('logout', 'Logout'); ?></li>
                 <?php } else { ?>
-                    <li><?php echo anchor('login', 'Login'); ?></li>
+                    <li><?= anchor(route_to('login.view'), 'Login'); ?></li>
                 <?php } ?>
             </ul>
 
