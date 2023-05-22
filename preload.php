@@ -24,7 +24,7 @@
  */
 
 // Load the paths config file
-require __DIR__ . '/app/Config/Paths.php';
+require __DIR__ . '/application/Config/Paths.php';
 
 // Path to the front controller
 define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR);

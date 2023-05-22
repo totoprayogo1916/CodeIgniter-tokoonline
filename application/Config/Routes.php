@@ -18,7 +18,7 @@ $routes->set404Override();
 // The Auto Routing (Legacy) is very dangerous. It is easy to create vulnerable apps
 // where controller filters or CSRF protection are bypassed.
 // If you don't want to define all routes, please use the Auto Routing (Improved).
-// Set `$autoRoutesImproved` to true in `app/Config/Feature.php` and set the following to true.
+// Set `$autoRoutesImproved` to true in `application/Config/Feature.php` and set the following to true.
 // $routes->setAutoRoute(false);
 
 /*
