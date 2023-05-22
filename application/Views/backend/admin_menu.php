@@ -16,7 +16,7 @@
       	  
 	<?php if($this->session->userdata('username')) : ?>
       <ul class="nav navbar-nav navbar-left">
-        <li><?=anchor('admin/products','Products')?></li>
+        <li><?=anchor(route_to('admin.product.view'),'Products')?></li>
         <li><?=anchor('admin/invoices','Invoices')?></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">

@@ -3,26 +3,32 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
+use App\Models\Product;
 
 class Products extends BaseController
 {
-    public function __construct()
+    // public function __construct()
+    // {
+    // parent::__construct();
+
+    // if ($this->session->userdata('group') !== '1') {
+    //     $this->session->set_flashdata('error', 'Sorry, you are not logged in!');
+    //     redirect('login');
+    // }
+
+    // load model -> model_products
+    // $this->load->model('model_products');
+    // }
+
+    /**
+     * Retrieves all products from the database and renders the view for displaying them.
+     */
+    public function index(): string
     {
-        parent::__construct();
+        $modelProduct     = new Product();
+        $data['products'] = $modelProduct->findAll();
 
-        if ($this->session->userdata('group') !== '1') {
-            $this->session->set_flashdata('error', 'Sorry, you are not logged in!');
-            redirect('login');
-        }
-
-        // load model -> model_products
-        $this->load->model('model_products');
-    }
-
-    public function index()
-    {
-        $data['products'] = $this->model_products->all();
-        $this->load->view('backend/view_all_products', $data);
+        return view('backend/view_all_products', $data);
     }
 
     public function create()

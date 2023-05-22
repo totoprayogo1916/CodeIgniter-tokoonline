@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use App\Controllers\Admin\Product;
 use App\Controllers\Login;
 use App\Controllers\Welcome;
 
@@ -46,7 +47,7 @@ $routes->group('login', static function ($routes) {
 });
 
 $routes->group('admin', static function ($routes) {
-    $routes->get('/', [Login::class, 'index'], ['as' => 'admin.view']);
+    $routes->get('product', [Product::class, 'index'], ['as' => 'admin.product.view']);
 });
 
 /*
