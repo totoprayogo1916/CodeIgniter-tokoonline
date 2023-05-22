@@ -37,6 +37,7 @@ $routes->get('/', [Welcome::class, 'index']);
 $routes->group('cart', static function ($routes) {
     $routes->get('/', [Welcome::class, 'cart'], ['as' => 'cart.view']);
     $routes->get('add/(:num)', [Welcome::class, 'add_to_cart'], ['as' => 'cart.add']);
+    $routes->get('clear', [Welcome::class, 'clear_cart'], ['as' => 'cart.clear']);
 });
 
 $routes->group('login', static function ($routes) {

@@ -53,7 +53,7 @@ $cart = new Cart();
 			</tfoot>
 		</table>
 		<div align="center">
-			<?= anchor('welcome/clear_cart', 'Clear Cart', ['class' => 'btn btn-danger']) ?>
+			<?= anchor(route_to('cart.clear'), 'Clear Cart', ['class' => 'btn btn-danger']) ?>
 			<?= anchor('/', 'Continue Shopping', ['class' => 'btn btn-primary']) ?>
 			<?= anchor('order', 'Check Out', ['class' => 'btn btn-success']) ?>
 		</div>
