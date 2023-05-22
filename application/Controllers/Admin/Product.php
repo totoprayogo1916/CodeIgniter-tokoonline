@@ -3,9 +3,9 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
-use App\Models\Product;
+use App\Models\Product as ProductModel;
 
-class Products extends BaseController
+class Product extends BaseController
 {
     // public function __construct()
     // {
@@ -25,7 +25,7 @@ class Products extends BaseController
      */
     public function index(): string
     {
-        $modelProduct     = new Product();
+        $modelProduct     = new ProductModel();
         $data['products'] = $modelProduct->findAll();
 
         return view('backend/view_all_products', $data);
