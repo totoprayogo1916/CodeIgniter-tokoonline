@@ -1,54 +1,30 @@
 <?php
 
-if (! defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
+namespace App\Models;
 
-class Product extends CI_Model
+use CodeIgniter\Model;
+
+class Product extends Model
 {
-    public function all()
-    {
-        // query semua record di table products
-        $hasil = $this->db->get('products');
-        if ($hasil->num_rows() > 0) {
-            return $hasil->result();
-        }
+    protected $DBGroup          = 'default';
+    protected $table            = 'products';
+    protected $primaryKey       = 'id';
+    protected $useAutoIncrement = true;
+    protected $returnType       = 'object';
+    protected $useSoftDeletes   = false;
+    protected $protectFields    = true;
+    protected $allowedFields    = [
+        'name',
+        'description',
+        'price',
+        'stock',
+        'image',
+    ];
 
-        return [];
-
-    }
-
-    public function find($id)
-    {
-        // Query mencari record berdasarkan ID-nya
-        $hasil = $this->db->where('id', $id)
-            ->limit(1)
-            ->get('products');
-        if ($hasil->num_rows() > 0) {
-            return $hasil->row();
-        }
-
-        return [];
-
-    }
-
-    public function create($data_products)
-    {
-        // Query INSERT INTO
-        $this->db->insert('products', $data_products);
-    }
-
-    public function update($id, $data_products)
-    {
-        // Query UPDATE FROM ... WHERE id=...
-        $this->db->where('id', $id)
-            ->update('products', $data_products);
-    }
-
-    public function delete($id)
-    {
-        // Query DELETE ... WHERE id=...
-        $this->db->where('id', $id)
-            ->delete('products');
-    }
+    // Dates
+    protected $useTimestamps = false;
+    protected $dateFormat    = 'datetime';
+    protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
+    protected $deletedField  = 'deleted_at';
 }

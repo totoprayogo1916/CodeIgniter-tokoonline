@@ -7,7 +7,7 @@
 		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 	</head>
 	<body>
-		<?php $this->load->view('layout/top_menu') ?>
+		<?= view('layout/top_menu') ?>
 		
 		<!-- Tampilkan semua produk -->
 		<div class="row">

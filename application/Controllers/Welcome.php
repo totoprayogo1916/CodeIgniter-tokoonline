@@ -2,23 +2,26 @@
 
 namespace App\Controllers;
 
+use App\Models\Product;
+use Totoprayogo\Lib\Cart;
+
 class Welcome extends BaseController
 {
-    public function __construct()
+    public function index(): string
     {
-        parent::__construct();
-        $this->load->model('model_products');
-    }
+        $modelProduct = new Product();
 
-    public function index()
-    {
-        $data['products'] = $this->model_products->all();
-        $this->load->view('welcome_message', $data);
+        $data['products'] = $modelProduct->findAll();
+
+        return view('welcome_message', $data);
     }
 
     public function add_to_cart($product_id)
     {
-        $product = $this->model_products->find($product_id);
+        $modelProduct = new Product();
+        $cart         = new Cart();
+
+        $product = $modelProduct->find($product_id);
         $data    = [
             'id'    => $product->id,
             'qty'   => 1,
@@ -26,21 +29,25 @@ class Welcome extends BaseController
             'name'  => $product->name,
         ];
 
-        $this->cart->insert($data);
-        redirect(base_url());
+        $cart->insert($data);
+
+        return redirect()->to('/');
     }
 
     public function cart()
     {
         // displays what currently inside the cart
         // print_r($this->cart->contents());
-        $this->load->view('show_cart');
+        return view('show_cart');
     }
 
     public function clear_cart()
     {
-        $this->cart->destroy();
-        redirect(base_url());
+        $cart = new Cart();
+
+        $cart->destroy();
+
+        return redirect()->to('/');
     }
 }
 

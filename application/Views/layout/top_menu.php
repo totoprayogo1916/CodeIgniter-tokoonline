@@ -1,3 +1,9 @@
+<?php
+
+use Totoprayogo\Lib\Cart;
+
+$cart = new Cart();
+?>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -19,12 +25,12 @@
         <li>
 			<?php
 				$text_cart_url  = '<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>';
-				$text_cart_url .= ' Inside Cart: '. $this->cart->total_items() .' items';
+				$text_cart_url .= ' Inside Cart: '. $cart->total_items() .' items';
 			?>
 			<?=anchor('welcome/cart', $text_cart_url)?>
 		</li>
-		<?php if($this->session->userdata('username')) { ?>
-			<li><div style="line-height:50px;">You Are : <?=$this->session->userdata('username')?></div></li>
+		<?php if(session('username')) { ?>
+			<li><div style="line-height:50px;">You Are : <?=session('username')?></div></li>
 			<li><?php echo anchor('logout', 'Logout');?></li>
 		<?php } else { ?>
 			<li><?php echo anchor('login', 'Login');?></li>

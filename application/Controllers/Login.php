@@ -4,7 +4,15 @@ namespace App\Controllers;
 
 class Login extends BaseController
 {
-    public function index()
+    /**
+     * Returns the form_login view.
+     */
+    public function index(): string
+    {
+        return view('form_login');
+    }
+
+    public function auth()
     {
         $this->form_validation->set_rules('username', 'Username', 'required|alpha_numeric');
         $this->form_validation->set_rules('password', 'Password', 'required|alpha_numeric');

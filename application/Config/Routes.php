@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use App\Controllers\Login;
 use App\Controllers\Welcome;
 
 // Create a new instance of our RouteCollection class.
@@ -32,6 +33,10 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', [Welcome::class, 'index']);
+
+$routes->group('login', static function ($routes) {
+    $routes->get('/', [Login::class, 'index']);
+});
 
 /*
  * --------------------------------------------------------------------
