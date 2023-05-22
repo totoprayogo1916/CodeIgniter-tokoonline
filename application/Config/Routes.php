@@ -45,6 +45,10 @@ $routes->group('login', static function ($routes) {
     $routes->post('/', [Login::class, 'auth'], ['as' => 'login.auth']);
 });
 
+$routes->group('admin', static function ($routes) {
+    $routes->get('/', [Login::class, 'index'], ['as' => 'admin.view']);
+});
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
