@@ -9,8 +9,7 @@ class Welcome extends BaseController
 {
     public function index(): string
     {
-        $modelProduct = new Product();
-
+        $modelProduct     = new Product();
         $data['products'] = $modelProduct->findAll();
 
         return view('welcome_message', $data);

@@ -34,6 +34,11 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 $routes->get('/', [Welcome::class, 'index']);
 
+$routes->group('cart', static function ($routes) {
+    $routes->get('/', [Welcome::class, 'cart'], ['as' => 'cart.view']);
+    $routes->get('add/(:num)', [Welcome::class, 'add_to_cart'], ['as' => 'cart.add']);
+});
+
 $routes->group('login', static function ($routes) {
     $routes->get('/', [Login::class, 'index']);
 });
