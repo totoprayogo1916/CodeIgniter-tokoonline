@@ -60,16 +60,35 @@ class Product extends BaseController
 
         // Validate the submitted form data
         if ($validation->withRequest($this->request)->run()) {
-            // Merge the form data with an empty image field and save it to the database
+
+            // Get the uploaded file and move it to the designated directory
+            $file  = $this->request->getFile('userfile');
+            $image = [];
+
+            if ($file->isValid() && ! $file->hasMoved()) {
+                $name = $file->getRandomName(); // set random name for file(s)
+
+                $file->move(WRITEPATH . 'uploads', $name);
+
+                // Set the image name for the database entry
+                $image = [
+                    'image' => $name,
+                ];
+            }
+
+            // Merge the form data with the image field and save it to the database
             $data = array_merge(
                 $this->request->getPost(),
-                ['image' => '']
+                $image
             );
             $modelProduct->save($data);
+
+            // Redirect to product list main page
+            return redirect()->route('admin.product.view');
         }
 
-        // Redirect to product list main page
-        return redirect()->route('admin.product.view');
+        // Redirect back to the previous page with user input
+        return redirect()->back()->withInput();
     }
 
     public function update($id)
