@@ -32,12 +32,7 @@
 							<th>Price</th>
 							<th>Stock</th>
 							<th>
-								<?= anchor(
-									'admin/products/create',
-									'Add Product',
-									['class' => 'btn btn-primary btn-sm']
-								)
-								?>
+								<?= anchor(route_to('admin.product.create'),'Add Product', ['class' => 'btn btn-primary btn-sm']) ?>
 							</th>
 						</tr>
 					</thead>
