@@ -49,8 +49,8 @@ $routes->group('login', static function ($routes) {
 $routes->group('admin', static function ($routes) {
     $routes->group('product', static function ($routes) {
         $routes->get('/', [Product::class, 'index'], ['as' => 'admin.product.view']);
-        $routes->get('create', [Product::class, 'create'], ['as' => 'admin.product.create']);
-        $routes->post('submit', [Product::class, 'submit'], ['as' => 'admin.product.submit']);
+        $routes->get('new', [Product::class, 'create'], ['as' => 'admin.product.create']);
+        $routes->post('new', [Product::class, 'submit'], ['as' => 'admin.product.submit']);
     });
 });
 
