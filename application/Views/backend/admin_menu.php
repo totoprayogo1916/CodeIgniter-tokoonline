@@ -17,7 +17,7 @@
             
                 <ul class="nav navbar-nav navbar-left">
                     <li><?= anchor(route_to('admin.product.view'), 'Products') ?></li>
-                    <li><?= anchor('admin/invoices', 'Invoices') ?></li>
+                    <li><?= anchor(route_to('admin.invoice.view'), 'Invoices') ?></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>

@@ -2,8 +2,10 @@
 
 namespace Config;
 
+use App\Controllers\Admin\Invoice;
 use App\Controllers\Admin\Product;
 use App\Controllers\Login;
+use App\Controllers\Order;
 use App\Controllers\Welcome;
 
 // Create a new instance of our RouteCollection class.
@@ -41,6 +43,10 @@ $routes->group('cart', static function ($routes) {
     $routes->get('clear', [Welcome::class, 'clear_cart'], ['as' => 'cart.clear']);
 });
 
+$routes->group('order', static function ($routes) {
+    $routes->get('/', [Order::class, 'index'], ['as' => 'order.view']);
+});
+
 $routes->group('login', static function ($routes) {
     $routes->get('/', [Login::class, 'index'], ['as' => 'login.view']);
     $routes->post('/', [Login::class, 'auth'], ['as' => 'login.auth']);
@@ -54,6 +60,11 @@ $routes->group('admin', static function ($routes) {
         $routes->get('update/(:num)', [Product::class, 'edit'], ['as' => 'admin.product.edit']);
         $routes->post('update', [Product::class, 'update'], ['as' => 'admin.product.update']);
         $routes->get('delete/(:num)', [Product::class, 'delete'], ['as' => 'admin.product.delete']);
+    });
+
+    $routes->group('invoice', static function ($routes) {
+        $routes->get('/', [Invoice::class, 'index'], ['as' => 'admin.invoice.view']);
+        $routes->get('detail/(:num)', [Invoice::class, 'detail'], ['as' => 'admin.invoice.detail']);
     });
 });
 

@@ -1,68 +1,62 @@
 <?php
 
-if (! defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
+namespace App\Models;
 
-class Order extends CI_Model
+use App\Entities\Order as EntitiesOrder;
+use CodeIgniter\Model;
+use Totoprayogo\Lib\Cart;
+
+class Order extends Model
 {
-    public function process()
+    protected $DBGroup          = 'default';
+    protected $table            = 'orders';
+    protected $primaryKey       = 'id';
+    protected $useAutoIncrement = true;
+    protected $returnType       = EntitiesOrder::class;
+    protected $useSoftDeletes   = false;
+    protected $protectFields    = true;
+    protected $allowedFields    = [
+        'invoice_id',
+        'product_id',
+        'product_name',
+        'qty',
+        'price',
+        'options',
+    ];
+
+    // Dates
+    protected $useTimestamps = false;
+    protected $dateFormat    = 'datetime';
+    protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
+    protected $deletedField  = 'deleted_at';
+
+    /**
+     * Process the cart items and insert them into the orders table.
+     */
+    public function process(): void
     {
-        // create new invoice
-        $invoice = [
-            'date'     => date('Y-m-d H:i:s'),
-            'due_date' => date('Y-m-d H:i:s', mktime(date('H'), date('i'), date('s'), date('m'), date('d') + 1, date('Y'))),
-            'status'   => 'unpaid',
-        ];
-        $this->db->insert('invoices', $invoice);
-        $invoice_id = $this->db->insert_id();
+        $cart         = new Cart();
+        $invoiceModel = new Invoice();
 
-        // put ordered items in orders table
-        foreach ($this->cart->contents() as $item) {
-            $data = [
-                'invoice_id'   => $invoice_id,
-                'product_id'   => $item['id'],
-                'product_name' => $item['name'],
-                'qty'          => $item['qty'],
-                'price'        => $item['price'],
-            ];
-            $this->db->insert('orders', $data);
+        // Check if there are any items in the cart
+        if ($cart->total_items() > 0) {
+
+            // Create a unique invoice ID
+            $invoice_id = $invoiceModel->createID();
+
+            // Insert ordered items into the orders table
+            foreach ($cart->contents() as $item) {
+                $data = [
+                    'invoice_id'   => $invoice_id,
+                    'product_id'   => $item['id'],
+                    'product_name' => $item['name'],
+                    'qty'          => $item['qty'],
+                    'price'        => $item['price'],
+                ];
+
+                $this->insert($data);
+            }
         }
-
-        return true;
-    }
-
-    public function all()
-    {
-        // Get all invoices from Invoices table
-        $hasil = $this->db->get('invoices');
-        if ($hasil->num_rows() > 0) {
-            return $hasil->result();
-        }
-
-        return false;
-
-    }
-
-    public function get_invoice_by_id($invoice_id)
-    {
-        $hasil = $this->db->where('id', $invoice_id)->limit(1)->get('invoices');
-        if ($hasil->num_rows() > 0) {
-            return $hasil->row();
-        }
-
-        return false;
-
-    }
-
-    public function get_orders_by_invoice($invoice_id)
-    {
-        $hasil = $this->db->where('invoice_id', $invoice_id)->get('orders');
-        if ($hasil->num_rows() > 0) {
-            return $hasil->result();
-        }
-
-        return false;
-
     }
 }
