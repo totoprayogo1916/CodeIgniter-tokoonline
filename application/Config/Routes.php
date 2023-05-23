@@ -43,16 +43,16 @@ $routes->group('cart', static function ($routes) {
     $routes->get('clear', [Welcome::class, 'clear_cart'], ['as' => 'cart.clear']);
 });
 
-$routes->group('order', static function ($routes) {
+$routes->group('order', ['filter' => 'log'], static function ($routes) {
     $routes->get('/', [Order::class, 'index'], ['as' => 'order.view']);
 });
 
-$routes->group('login', static function ($routes) {
+$routes->group('login', ['filter' => 'log'], static function ($routes) {
     $routes->get('/', [Login::class, 'index'], ['as' => 'login.view']);
     $routes->post('/', [Login::class, 'auth'], ['as' => 'login.auth']);
 });
 
-$routes->group('admin', static function ($routes) {
+$routes->group('admin', ['filter' => 'log:admin'], static function ($routes) {
     $routes->group('product', static function ($routes) {
         $routes->get('/', [Product::class, 'index'], ['as' => 'admin.product.view']);
         $routes->get('new', [Product::class, 'create'], ['as' => 'admin.product.create']);

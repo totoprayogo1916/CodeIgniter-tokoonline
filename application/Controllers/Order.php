@@ -8,15 +8,6 @@ use Totoprayogo\Lib\Cart;
 
 class Order extends BaseController
 {
-    // public function __construct()
-    // {
-    //     parent::__construct();
-    //     if (! $this->session->userdata('username')) {
-    //         redirect('login');
-    //     }
-    //     $this->load->model('model_orders');
-    // }
-
     /**
      * Process the order.
      *
