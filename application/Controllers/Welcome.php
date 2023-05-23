@@ -3,10 +3,14 @@
 namespace App\Controllers;
 
 use App\Models\Product;
+use CodeIgniter\HTTP\RedirectResponse;
 use Totoprayogo\Lib\Cart;
 
 class Welcome extends BaseController
 {
+    /**
+     * Display a list of all products.
+     */
     public function index(): string
     {
         $modelProduct     = new Product();
@@ -15,32 +19,47 @@ class Welcome extends BaseController
         return view('welcome_message', $data);
     }
 
-    public function add_to_cart($product_id)
+    /**
+     * Adds a product to the cart
+     *
+     * @param int $product_id The ID of the product to add to the cart
+     */
+    public function add_to_cart(int $product_id): RedirectResponse
     {
+        // Instantiate a Product model and a Cart object
         $modelProduct = new Product();
         $cart         = new Cart();
 
+        // Get the product by ID
         $product = $modelProduct->find($product_id);
-        $data    = [
+
+        // Prepare the data to insert into the cart
+        $data = [
             'id'    => $product->id,
             'qty'   => 1,
             'price' => $product->price,
             'name'  => $product->name,
         ];
 
+        // Insert the data into the cart
         $cart->insert($data);
 
+        // Redirect to the homepage
         return redirect()->to('/');
     }
 
-    public function cart()
+    /**
+     * Display the contents of the cart.
+     */
+    public function cart(): string
     {
-        // displays what currently inside the cart
-        // print_r($this->cart->contents());
         return view('show_cart');
     }
 
-    public function clear_cart()
+    /**
+     * Clear the user's shopping cart.
+     */
+    public function clear_cart(): RedirectResponse
     {
         $cart = new Cart();
 

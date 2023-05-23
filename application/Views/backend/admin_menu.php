@@ -26,7 +26,7 @@
                         </span>
                     </li>
                     <li>
-                        <?php echo anchor('logout', 'Logout'); ?>
+                        <?php echo anchor(route_to('logout'), 'Logout'); ?>
                     </li>
                 </ul>
             

@@ -52,6 +52,8 @@ $routes->group('login', ['filter' => 'log'], static function ($routes) {
     $routes->post('/', [Login::class, 'auth'], ['as' => 'login.auth']);
 });
 
+$routes->get('logout', [Login::class, 'logout'], ['as' => 'logout']);
+
 $routes->group('admin', ['filter' => 'log:admin'], static function ($routes) {
     $routes->group('product', static function ($routes) {
         $routes->get('/', [Product::class, 'index'], ['as' => 'admin.product.view']);

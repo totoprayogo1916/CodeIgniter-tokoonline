@@ -64,9 +64,13 @@ class Login extends BaseController
         return redirect()->back()->withInput()->with('error', 'Wrong Username / Password!');
     }
 
-    public function logout()
+    /**
+     * Logs the user out of the application and redirects to the login page.
+     */
+    public function logout(): RedirectResponse
     {
         session()->sess_destroy();
-        redirect('login');
+
+        return redirect()->route('login.view');
     }
 }

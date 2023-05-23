@@ -33,7 +33,7 @@ $cart = new Cart();
                     <li>
                         <div style="line-height:50px;">You Are : <?= session('username') ?></div>
                     </li>
-                    <li><?php echo anchor('logout', 'Logout'); ?></li>
+                    <li><?php echo anchor(route_to('logout'), 'Logout'); ?></li>
                 <?php } else { ?>
                     <li><?= anchor(route_to('login.view'), 'Login'); ?></li>
                 <?php } ?>
