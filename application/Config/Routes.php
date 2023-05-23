@@ -53,6 +53,7 @@ $routes->group('admin', static function ($routes) {
         $routes->post('new', [Product::class, 'submit'], ['as' => 'admin.product.submit']);
         $routes->get('update/(:num)', [Product::class, 'edit'], ['as' => 'admin.product.edit']);
         $routes->post('update', [Product::class, 'update'], ['as' => 'admin.product.update']);
+        $routes->get('delete/(:num)', [Product::class, 'delete'], ['as' => 'admin.product.delete']);
     });
 });
 

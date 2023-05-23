@@ -52,15 +52,7 @@
 								<td><?= $product->stock ?></td>
 								<td>
 									<?= anchor(route_to('admin.product.edit', $product->id), 'Edit', ['class' => 'btn btn-default btn-sm']) ?>
-									<?= anchor(
-										'admin/products/delete/' . $product->id,
-										'Delete',
-										[
-											'class' => 'btn btn-danger btn-sm',
-											'onclick' => 'return confirm(\'Apakah Anda Yakin?\')'
-										]
-									)
-									?>
+									<?= anchor(route_to('admin.product.delete', $product->id), 'Delete',['class' => 'btn btn-danger btn-sm','onclick' => 'return confirm(\'Apakah Anda Yakin?\')']) ?>
 								</td>
 							</tr>
 						<?php endforeach; ?>

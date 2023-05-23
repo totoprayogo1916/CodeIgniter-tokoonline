@@ -157,9 +157,16 @@ class Product extends BaseController
         return redirect()->back()->withInput();
     }
 
-    public function delete($id)
+    /**
+     * Delete a product by ID.
+     *
+     * @param int $id The ID of the product to delete.
+     */
+    public function delete(int $id): RedirectResponse
     {
-        $this->model_products->delete($id);
-        redirect('admin/products');
+        $modelProduct = new ProductModel();
+        $modelProduct->delete($id);
+
+        return redirect()->back();
     }
 }
