@@ -91,55 +91,70 @@ class Product extends BaseController
         return redirect()->back()->withInput();
     }
 
-    public function update($id)
+    /**
+     * View the product edit page for a specific product by its ID.
+     *
+     * @param int $id The ID of the product to edit
+     *
+     * @return string The view for editing the product
+     */
+    public function edit(int $id): string
     {
-        $this->form_validation->set_rules('name', 'Product Name', 'required');
-        $this->form_validation->set_rules('description', 'Product Description', 'required');
-        $this->form_validation->set_rules('price', 'Product Price', 'required|integer');
-        $this->form_validation->set_rules('stock', 'Available Stock', 'required|integer');
+        $modelProduct    = new ProductModel();
+        $data['product'] = $modelProduct->find($id);
 
-        if ($this->form_validation->run() === false) {
-            $data['product'] = $this->model_products->find($id);
-            $this->load->view('backend/form_edit_product', $data);
-        } else {
-            if ($_FILES['userfile']['name'] !== '') {
-                // form submit dengan gambar diisi
-                // load uploading file library
-                $config['upload_path']   = './uploads/';
-                $config['allowed_types'] = 'jpg|png';
-                $config['max_size']      = '300'; // KB
-                $config['max_width']     = '2000'; // pixels
-                $config['max_height']    = '2000'; // pixels
+        return view('backend/form_edit_product', $data);
+    }
 
-                $this->load->library('upload', $config);
+    /**
+     * Update a product in the database.
+     */
+    public function update(): RedirectResponse
+    {
+        // Get the validation service
+        $validation   = Services::validation();
+        $modelProduct = new ProductModel();
 
-                if (! $this->upload->do_upload()) {
-                    $data['product'] = $this->model_products->find($id);
-                    $this->load->view('backend/form_edit_product', $data);
-                } else {
-                    $gambar       = $this->upload->data();
-                    $data_product = [
-                        'name'        => set_value('name'),
-                        'description' => set_value('description'),
-                        'price'       => set_value('price'),
-                        'stock'       => set_value('stock'),
-                        'image'       => $gambar['file_name'],
-                    ];
-                    $this->model_products->update($id, $data_product);
-                    redirect('admin/products');
-                }
-            } else {
-                // form submit dengan gambar dikosongkan
-                $data_product = [
-                    'name'        => set_value('name'),
-                    'description' => set_value('description'),
-                    'price'       => set_value('price'),
-                    'stock'       => set_value('stock'),
+        // Set the validation rules for the product form fields
+        $validation->setRules([
+            'id'          => ['label' => 'ID', 'rules' => 'required|integer'],
+            'name'        => ['label' => 'product name', 'rules' => 'required'],
+            'description' => ['label' => 'description', 'rules' => 'required'],
+            'price'       => ['label' => 'product price', 'rules' => 'required|integer'],
+            'stock'       => ['label' => 'available stock', 'rules' => 'required|integer'],
+        ]);
+
+        // Validate the submitted form data
+        if ($validation->withRequest($this->request)->run()) {
+
+            // Get the uploaded file and move it to the designated directory
+            $file  = $this->request->getFile('userfile');
+            $image = [];
+
+            if ($file->isValid() && ! $file->hasMoved()) {
+                $name = $file->getRandomName(); // set random name for file(s)
+
+                $file->move(WRITEPATH . 'uploads', $name);
+
+                // Set the image name for the database entry
+                $image = [
+                    'image' => $name,
                 ];
-                $this->model_products->update($id, $data_product);
-                redirect('admin/products');
             }
+
+            // Merge the form data with the image field and save it to the database
+            $data = array_merge(
+                $this->request->getPost(),
+                $image
+            );
+            $modelProduct->save($data);
+
+            // Redirect to product list main page
+            return redirect()->route('admin.product.view');
         }
+
+        // Redirect back to the previous page with user input
+        return redirect()->back()->withInput();
     }
 
     public function delete($id)

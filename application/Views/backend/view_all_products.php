@@ -51,12 +51,7 @@
 								<td><?= $product->price ?></td>
 								<td><?= $product->stock ?></td>
 								<td>
-									<?= anchor(
-										'admin/products/update/' . $product->id,
-										'Edit',
-										['class' => 'btn btn-default btn-sm']
-									)
-									?>
+									<?= anchor(route_to('admin.product.edit', $product->id), 'Edit', ['class' => 'btn btn-default btn-sm']) ?>
 									<?= anchor(
 										'admin/products/delete/' . $product->id,
 										'Delete',

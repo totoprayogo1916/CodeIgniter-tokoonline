@@ -51,6 +51,8 @@ $routes->group('admin', static function ($routes) {
         $routes->get('/', [Product::class, 'index'], ['as' => 'admin.product.view']);
         $routes->get('new', [Product::class, 'create'], ['as' => 'admin.product.create']);
         $routes->post('new', [Product::class, 'submit'], ['as' => 'admin.product.submit']);
+        $routes->get('update/(:num)', [Product::class, 'edit'], ['as' => 'admin.product.edit']);
+        $routes->post('update', [Product::class, 'update'], ['as' => 'admin.product.update']);
     });
 });
 
