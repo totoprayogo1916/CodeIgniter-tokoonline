@@ -14,6 +14,7 @@ class Welcome extends BaseController
     public function index(): string
     {
         $modelProduct     = new Product();
+        $data['title']    = 'Front-End Toko Online';
         $data['products'] = $modelProduct->findAll();
 
         return view('welcome_message', $data);
@@ -53,7 +54,9 @@ class Welcome extends BaseController
      */
     public function cart(): string
     {
-        return view('show_cart');
+        $data['title'] = 'Cart';
+
+        return view('show_cart', $data);
     }
 
     /**
