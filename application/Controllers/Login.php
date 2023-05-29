@@ -13,7 +13,9 @@ class Login extends BaseController
      */
     public function index(): string
     {
-        return view('form_login');
+        $data['title'] = 'Login';
+
+        return view('form_login', $data);
     }
 
     /**
