@@ -11,8 +11,7 @@
     "require-dev": {
         "codeigniter/coding-standard": "^1.1",
         "fakerphp/faker": "^1.9",
-        "mikey179/vfsstream": "^1.6",
-        "phpunit/phpunit": "^9.1"
+        "mikey179/vfsstream": "^1.6"
     },
     "autoload": {
         "exclude-from-classmap": [
@@ -30,7 +29,6 @@
         "sort-packages": true
     },
     "scripts": {
-        "csfix": "./vendor/bin/php-cs-fixer fix",
-        "test": "phpunit"
+        "csfix": "./vendor/bin/php-cs-fixer fix"
     }
 }
