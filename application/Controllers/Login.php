@@ -76,7 +76,7 @@ class Login extends BaseController
      */
     public function logout(): RedirectResponse
     {
-        session()->sess_destroy();
+        session()->destroy();
 
         return redirect()->route('login.view');
     }
