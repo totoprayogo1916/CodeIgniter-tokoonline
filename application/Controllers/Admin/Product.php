@@ -55,7 +55,7 @@ class Product extends BaseController
             if ($file->isValid() && ! $file->hasMoved()) {
                 $name = $file->getRandomName(); // set random name for file(s)
 
-                $file->move(WRITEPATH . 'uploads', $name);
+                $file->move(FCPATH . 'uploads', $name);
 
                 // Set the image name for the database entry
                 $image = [
@@ -121,7 +121,7 @@ class Product extends BaseController
             if ($file->isValid() && ! $file->hasMoved()) {
                 $name = $file->getRandomName(); // set random name for file(s)
 
-                $file->move(WRITEPATH . 'uploads', $name);
+                $file->move(FCPATH . 'uploads', $name);
 
                 // Set the image name for the database entry
                 $image = [

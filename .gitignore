@@ -25,3 +25,4 @@ writable/debugbar/*
 # Custom
 #-------------------------
 .env
+/public/uploads/*
