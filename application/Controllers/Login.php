@@ -45,6 +45,13 @@ class Login extends BaseController
             // If the user exists and the password matches, log in the user
             if ($getUser !== null) {
                 if ($getUser->password === $password) {
+
+                    session()->set([
+                        'id'       => $getUser->id,
+                        'username' => $getUser->username,
+                        'group'    => $getUser->group,
+                    ]);
+
                     switch ($getUser->group) {
                         case '1' : // admin
                             return redirect()->route('admin.product.view');
