@@ -14,6 +14,7 @@ class Welcome extends BaseController
     public function index(): string
     {
         $modelProduct     = new Product();
+        $data['title'] = 'Front-End Toko Online';
         $data['products'] = $modelProduct->findAll();
 
         return view('welcome_message', $data);
